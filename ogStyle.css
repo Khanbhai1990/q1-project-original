@@ -1,0 +1,47 @@
+canvas{
+  width:90%;
+  height:100%;
+  background: black;
+}
+html, body {
+  height: 100%;
+  margin:0;
+  background: #3f51b5;
+}
+
+#myCanvas{
+  margin-left: 5%;
+  margin-top: 0;
+}
+
+#first{
+  margin-left:4%;
+  background: #002884;
+}
+#second button{
+  font-size: 12px;
+  background:#5c007a;
+}
+#third button{
+  /*margin-left: 83.8%*/
+  margin-top:30px;
+  background:#5c007a;
+}
+
+.nav-wrapper{
+  background:#3f51b5;
+}
+
+#footerish{
+  background: #757ce8;
+}
+
+.page-footer{
+  background: #002884;
+}
+
+
+
+.collapsible-header{
+  background: #8e24aa;
+}

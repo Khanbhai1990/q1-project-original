@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js">
+    </script>
+    <script type="text/javascript" src="paper-full.js"></script>
+    <script type="text/paperscript" canvas="myCanvas">
+    var center = new Point(300, 200);
+    var path = new Path.Circle(center, 200);
+    var rand = 1;
+    var speed = 2;
+    var num = 80;
+    var num2 = 30;
+    var fontHead = 40;
+    var fontBody = 30;
+    var text0 = new PointText({
+    	justification: 'center',
+      fontFamily: 'Courier New',
+    	fontSize: fontHead,
+    	point: center,
+    	fillColor: 'white'
+    });
+
+text = []
+colors = ["red","blue","green","yellow"]
+for (var i =0;i<4;i++){
+  text.push(new PointText({
+    justification: 'center',
+    fontSize:30,
+    point: path.segments[i].point,
+    fillColor: colors[i]
+  }))
+}
+var text1 = text[0];
+var text2 = text[1];
+var text3 = text[2];
+var text4 = text[3];
+
+destination0 = Point.random() * view.size;
+destination00 = Point.random() * view.size;
+destination = path.segments[0].point
+destination2 = path.segments[1].point
+destination3 = path.segments[2].point
+destination4 = path.segments[3].point
+
+
+
+function onFrame(event) {
+
+  path.rotate(speed);
+  vector0 = destination0 - path.position;
+  path.position  += vector0 / num;
+  vector00 = destination00 - text0.position;
+  text0.position  += vector00 / num2;
+  text0.content = $("#para").html();
+  text0.opacity = Math.random()+rand
+  text0.fontSize = fontHead;
+  vector = destination - text1.position;
+  text1.position  += vector;
+  text1.content = $("#para2").html();
+  text1.opacity = Math.random()+rand
+  text1.fontSize = fontBody;
+  vector2 = destination2 - text2.position;
+  text2.position  += vector2;
+  text2.content = $("#para3").html()
+  text2.opacity = Math.random()+rand;
+  text2.fontSize = fontBody;
+  vector3 = destination3 - text3.position;
+  text3.position  += vector3;
+  text3.content = $("#para4").html();
+  text3.opacity = Math.random()+rand;
+  text3.fontSize = fontBody;
+  vector4 = destination4 - text4.position;
+  text4.position  += vector4;
+  text4.content = $("#para5").html();
+  text4.opacity = Math.random()+rand;
+  text4.fontSize = fontBody;
+  if (vector0.length < 5) {
+      var randPoint = Point.random() * view.size;
+    destination0 = randPoint;
+    destination00 = randPoint;
+  }
+}
+    function onMouseDown(event) {
+    if (text1.contains(event.point)) {
+        $("#para").html(text1.content)
+    } else if (text2.contains(event.point)) {
+        $("#para").html(text2.content)
+    } else if (text3.contains(event.point)){
+        $("#para").html(text3.content)
+    } else if (text4.contains(event.point)){
+        $("#para").html(text4.content)
+    }
+  }
+
+  function onKeyDown(event) {
+    if (event.key == 'right') {
+        text0.fillColor = 'pink';
+        speed++;
+
+        if (speed === 1)
+          {var sound2 = new Howl({
+                    src: ['sounds/warpDrive.mp3']
+                  }).play();
+                }
+
+    }
+    if (event.key == 'left') {
+        text0.fillColor = 'orange';
+        speed--;
+        if (speed === -5)
+          {var sound3 = new Howl({
+                    src: ['sounds/wrongWay.mp3']
+                  }).play();
+                }
+    }
+
+    if (event.key == '1') {
+      rand = 1;
+    }
+    if (event.key == '2'){
+      rand =0;
+    }
+
+    if (event.key == 'a'){
+      fontHead++;
+    }
+    if (event.key == 's'){
+      fontHead--;
+    }
+    if (event.key == 'z'){
+      fontBody++;
+    }
+    if (event.key == 'x'){
+      fontBody--;
+    }
+  }
+
+  // function onMouseDown(event) {
+  //   if (text0.contains(event.point)) {
+  //       text0.fillColor = 'red';
+  //       path = new Path.Circle(center, 200)
+  //       var sound = new Howl({
+  //                 src: ['sounds/test1.mp3']
+  //               }).play();
+  //
+  //   }
+  // }
+
+
+
+    </script>
+    <script src="./main.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.js"></script>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <link rel="stylesheet" href="./ogStyle.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <a id="link1" href="#"><p hidden id="para"></p></a>
+  <a id="link2" href="#"><p hidden id="para2"></p></a>
+  <a id="link3" href="#"><p hidden id="para3"></p></a>
+  <a id="link4" href="#"><p hidden id="para4"></p></a>
+  <a id="link5" href="#"><p hidden id="para5"></p></a>
+  </head>
+  <body>
+    <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo center">got words?</a>
+    </div>
+  </nav>
+   <footer class="page-footer">
+    <div class= "row">
+    <div id="first" class="input-field col s2 "></div>
+    <div id="second" class="input-field col s1"></div>
+    <div id="third" class="col s2 offset-s6"></div>
+    </div>
+
+    <canvas id="myCanvas" class="card-panel hoverable black" resize></canvas>
+    <ul class="collapsible popout" data-collapsible="accordion">
+  <li>
+    <div class="collapsible-header"><i class="material-icons">gamepad</i>Hot Keys</div>
+    <div class="collapsible-body"><span>Spin Right: Right Arrow key<br>Spin Left: Left Arrow key <br>Main Word FontSize +: a key <br>Main Word FontSize -: s key <br>Satellite Words FontSize +: z key <br>Satellite Words FontSize -: x key <br>Change Main Word: click on Satellite Words <br>Change Satellite Words: click anywhere on the Canvas</span></div>
+  </li>
+  <li>
+    <div class="collapsible-header"><i class="material-icons">wb_incandescent</i>What's the Point?</div>
+    <div class="collapsible-body"><span><h3>Hard-to-Read Fonts Promote Better Recall</h3><p>The research: Daniel Oppenheimer and two colleagues, Connor Diemand-Yauman and Erikka Vaughan, asked 28 college students to memorize biological profiles of two fictional species, the pangerish and the norgletti. The pangerish profile was printed in a gray 12-point Comic Sans or Bodoni font; the norgletti profile in an easier-to-read, 16-point Arial pure-black font. After 15 minutes of distraction, the students recalled 87% of the pangerish facts versus 73% of the norgletti facts. And in a semester-long study at an Ohio high school, students who were exposed to slides and handouts using less legible typefaces performed better on tests than students exposed to materials presented in more-readable type.</p><a href="https://hbr.org/2012/03/hard-to-read-fonts-promote-better-recall">Harvard Business Review</a></span></div>
+  </li>
+  <li>
+    <div class="collapsible-header"><i class="material-icons">language</i>About the Website</div>
+    <div class="collapsible-body"><span><h3>Paper.js</h3><p>Paper.js is an open source vector graphics scripting framework that runs on top of the HTML5 Canvas. It offers a clean Scene Graph / Document Object Model and a lot of powerful functionality to create and work with vector graphics and bezier curves, all neatly wrapped up in a well designed, consistent and clean programming interface</p><a href="https://hbr.org/2012/03/hard-to-read-fonts-promote-better-recall">Visit Their Website</a></span></div>
+  </li>
+</ul>
+    <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text">Galvanize Q1 Project</h5>
+              <p class="grey-text text-lighten-4">by Hassan Khan</p>
+            </div>
+          </div>
+        </div>
+        <div id="footerish" class="footer-copyright">
+          <div class="container">
+          © 2017 GOT WORDS?
+          </div>
+        </div>
+      </footer>
+
+
+  </body>
+</html>

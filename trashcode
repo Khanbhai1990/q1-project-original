@@ -1,0 +1,21 @@
+text = []
+colors = ["red","blue","green","yellow","purple","brown","pink","orange"]
+for (var i =0;i<4;i++){
+  text.push(new PointText({
+    justification: 'center',
+    fontSize:30,
+    point: path.segments[i].point,
+    fillColor: colors[i]
+  }))
+}
+console.log(text[3])
+
+
+$.get("http://words.bighugelabs.com/api/2/1e21b3abd7e53dfb7b17414af1edc945/" +text.content+"/xml", function(json){
+      let data = xmlToJson(json);
+      $("#para").html(value)
+      $("#para2").html(data.words.w[0])
+      $("#para3").html(data.words.w[1])
+      $("#para4").html(data.words.w[2])
+      $("#para5").html(data.words.w[3])
+})
